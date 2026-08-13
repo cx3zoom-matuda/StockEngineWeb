@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { Link, Route, Switch, useLocation } from "wouter";
+import { Link, Route, Router, Switch, useLocation } from "wouter";
 import {
   ArrowUpRight,
   Bell,
@@ -378,4 +378,4 @@ function AppRouter() {
   return <><Header onMenu={() => setMenuOpen(true)} onSearch={() => setSearchOpen(true)} /><Rail open={menuOpen} setOpen={setMenuOpen} onSearch={() => setSearchOpen(true)} />{searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}<div className="desktop-page"><Switch><Route path="/" component={Landing} />{modes.map((mode) => <Route key={mode.slug} path={`/modes/${mode.slug}`}>{() => <ModePage mode={mode} />}</Route>)}<Route component={Landing} /></Switch></div></>;
 }
 
-export default function App() { return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><AppRouter /></TooltipProvider></ThemeProvider></ErrorBoundary>; }
+export default function App() { return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><Router base="/stockengine"><AppRouter /></Router></TooltipProvider></ThemeProvider></ErrorBoundary>; }
