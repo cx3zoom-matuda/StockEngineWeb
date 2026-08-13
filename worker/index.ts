@@ -8,6 +8,25 @@ export default {
       url.pathname = url.pathname.slice(SUBPATH.length) || "/";
     }
 
-    return env.ASSETS.fetch(new Request(url, request));
+    const assetRequest = new Request(url, request);
+    const assetResponse = await env.ASSETS.fetch(assetRequest);
+
+    if (assetResponse.status !== 404) {
+      return assetResponse;
+    }
+
+    const accept = request.headers.get("Accept") ?? "";
+    const isHtmlNavigation =
+      request.method === "GET" &&
+      accept.includes("text/html") &&
+      !/\.[^/]+$/.test(url.pathname);
+
+    if (!isHtmlNavigation) {
+      return assetResponse;
+    }
+
+    const indexUrl = new URL(url);
+    indexUrl.pathname = "/index.html";
+    return env.ASSETS.fetch(new Request(indexUrl, request));
   },
 };
