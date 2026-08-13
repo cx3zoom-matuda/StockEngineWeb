@@ -23,11 +23,12 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-const heroImage = "/manus-storage/stock-engine-hero_f9a43208.png";
-const screenerImage = "/manus-storage/stock-engine-screener_8cff25b4.png";
-const portfolioImage = "/manus-storage/stock-engine-portfolio_904ce944.png";
-const timelineImage = "/manus-storage/stock-engine-timeline_bfb30d5d.png";
-const markImage = "/manus-storage/stock-engine-mark_034a428f.png";
+const assetUrl = (file: string) => `${import.meta.env.BASE_URL}assets/${file}`;
+const heroImage = assetUrl("stock-engine-hero.png");
+const screenerImage = assetUrl("stock-engine-screener.png");
+const portfolioImage = assetUrl("stock-engine-portfolio.png");
+const timelineImage = assetUrl("stock-engine-timeline.png");
+const markImage = assetUrl("stock-engine-mark.png");
 
 export type Mode = {
   number: string;
