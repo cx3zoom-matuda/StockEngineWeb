@@ -25,8 +25,10 @@ export default {
       return assetResponse;
     }
 
+    // Cloudflare Workers Static Assets canonicalizes /index.html to / with a 307.
+    // Request the asset root directly so SPA deep links receive index.html as a 200 response.
     const indexUrl = new URL(url);
-    indexUrl.pathname = "/index.html";
+    indexUrl.pathname = "/";
     return env.ASSETS.fetch(new Request(indexUrl, request));
   },
 };
