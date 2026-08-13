@@ -21,7 +21,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const assetUrl = (file: string) => `${import.meta.env.BASE_URL}assets/${file}`;
 const heroImage = assetUrl("stock-engine-hero.png");
@@ -376,6 +376,11 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
 function AppRouter() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [location] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location]);
   return <><Header onMenu={() => setMenuOpen(true)} onSearch={() => setSearchOpen(true)} /><Rail open={menuOpen} setOpen={setMenuOpen} onSearch={() => setSearchOpen(true)} />{searchOpen && <SearchPanel onClose={() => setSearchOpen(false)} />}<div className="desktop-page"><Switch><Route path="/" component={Landing} />{modes.map((mode) => <Route key={mode.slug} path={`/modes/${mode.slug}`}>{() => <ModePage mode={mode} />}</Route>)}<Route component={Landing} /></Switch></div></>;
 }
 
